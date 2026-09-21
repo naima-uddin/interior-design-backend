@@ -154,12 +154,15 @@ const SettingSchema = new Schema(
   { timestamps: true },
 );
 
-/* Admin user (single/few accounts, no public signup) */
+/* Admin/moderator users (no public signup — accounts created via Team page or seed).
+   admin: full access (content + media + settings + team).
+   moderator: content + media only — no settings, no team management. */
 const AdminSchema = new Schema(
   {
     email: { type: String, required: true, unique: true, lowercase: true, trim: true },
     passwordHash: { type: String, required: true },
     name: { type: String, default: "Admin" },
+    role: { type: String, enum: ["admin", "moderator"], default: "moderator" },
   },
   { timestamps: true },
 );

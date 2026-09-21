@@ -251,10 +251,18 @@ async function seed() {
   const existingAdmin = await Admin.findOne({ email: adminEmail });
   if (!existingAdmin) {
     const passwordHash = await bcrypt.hash(process.env.ADMIN_PASSWORD || "changeme", 10);
-    await Admin.create({ email: adminEmail, passwordHash, name: "Velor Admin" });
+    await Admin.create({ email: adminEmail, passwordHash, name: "Velor Admin", role: "admin" });
     console.log(`Admin account created: ${adminEmail}`);
   } else {
-    console.log(`Admin account already exists: ${adminEmail}`);
+    // Migration: accounts created before the `role` field existed have none
+    // stored — make sure the primary seeded account is always "admin".
+    if (existingAdmin.role !== "admin") {
+      existingAdmin.role = "admin";
+      await existingAdmin.save();
+      console.log(`Admin account role backfilled to "admin": ${adminEmail}`);
+    } else {
+      console.log(`Admin account already exists: ${adminEmail}`);
+    }
   }
 
   const counts = {

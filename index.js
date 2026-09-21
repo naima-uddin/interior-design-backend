@@ -19,8 +19,10 @@ import {
   Setting,
   MODELS,
 } from "./models.js";
-import { login, logout, me, requireAuth } from "./auth.js";
+import { login, logout, me, requireAuth, requireRole } from "./auth.js";
 import { uploadMiddleware, handleUpload } from "./upload.js";
+import { listTeam, createTeamMember, updateTeamMember, deleteTeamMember } from "./team.js";
+import { listMedia, deleteMedia } from "./media.js";
 
 const app = express();
 app.use(express.json({ limit: "4mb" }));
@@ -64,6 +66,16 @@ app.get("/api/auth/me", requireAuth, me);
 
 /* ── Image upload (Cloudinary, folder: Interior-design/<folder>) ────────── */
 app.post("/api/upload", requireAuth, uploadMiddleware, handleUpload);
+
+/* ── Media library (browse/delete everything already on Cloudinary) ─────── */
+app.get("/api/media", requireAuth, listMedia);
+app.delete("/api/media", requireAuth, deleteMedia);
+
+/* ── Team (admin/moderator accounts) — admin role only ───────────────────── */
+app.get("/api/team", requireAuth, requireRole("admin"), listTeam);
+app.post("/api/team", requireAuth, requireRole("admin"), createTeamMember);
+app.put("/api/team/:id", requireAuth, requireRole("admin"), updateTeamMember);
+app.delete("/api/team/:id", requireAuth, requireRole("admin"), deleteTeamMember);
 
 /* ── Batched homepage payload (one request for the whole home page) ─────── */
 app.get("/api/homepage", async (req, res, next) => {
@@ -285,7 +297,7 @@ for (const [name, Model] of Object.entries(MODELS)) {
 }
 
 // Settings is a singleton — allow updating it in place (admin only).
-app.put("/api/settings", requireAuth, async (req, res, next) => {
+app.put("/api/settings", requireAuth, requireRole("admin"), async (req, res, next) => {
   try {
     const item = await Setting.findOneAndUpdate({ key: "site" }, req.body, {
       new: true,

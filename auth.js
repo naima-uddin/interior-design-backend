@@ -1,5 +1,5 @@
-// Admin authentication — a single (or few) hard-seeded admin account(s), JWT in
-// an httpOnly cookie. No public signup: accounts are created via seed.js only.
+// Admin authentication — admin/moderator accounts, JWT in an httpOnly cookie.
+// No public signup: accounts are created via seed.js or the Team page.
 
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
@@ -10,7 +10,7 @@ const TOKEN_TTL = "7d";
 
 export function signToken(admin) {
   return jwt.sign(
-    { id: admin._id.toString(), email: admin.email },
+    { id: admin._id.toString(), email: admin.email, name: admin.name, role: admin.role },
     process.env.JWT_SECRET,
     { expiresIn: TOKEN_TTL },
   );
@@ -45,6 +45,17 @@ export function requireAuth(req, res, next) {
   }
 }
 
+// Gate a route to specific role(s), e.g. requireRole("admin"). Must run after
+// requireAuth so req.admin is populated.
+export function requireRole(...roles) {
+  return (req, res, next) => {
+    if (!req.admin || !roles.includes(req.admin.role)) {
+      return res.status(403).json({ error: "You don't have permission to do that" });
+    }
+    next();
+  };
+}
+
 export async function login(req, res) {
   const { email, password } = req.body || {};
   if (!email || !password) {
@@ -58,7 +69,7 @@ export async function login(req, res) {
 
   const token = signToken(admin);
   setAuthCookie(res, token);
-  res.json({ token, admin: { email: admin.email, name: admin.name } });
+  res.json({ token, admin: { email: admin.email, name: admin.name, role: admin.role } });
 }
 
 export function logout(req, res) {
