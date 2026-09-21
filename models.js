@@ -154,6 +154,16 @@ const SettingSchema = new Schema(
   { timestamps: true },
 );
 
+/* Admin user (single/few accounts, no public signup) */
+const AdminSchema = new Schema(
+  {
+    email: { type: String, required: true, unique: true, lowercase: true, trim: true },
+    passwordHash: { type: String, required: true },
+    name: { type: String, default: "Admin" },
+  },
+  { timestamps: true },
+);
+
 export const Banner = models.Banner || model("Banner", BannerSchema);
 export const Product = models.Product || model("Product", ProductSchema);
 export const Project = models.Project || model("Project", ProjectSchema);
