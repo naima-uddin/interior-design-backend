@@ -174,6 +174,7 @@ export const Faq = models.Faq || model("Faq", FaqSchema);
 export const Room = models.Room || model("Room", RoomSchema);
 export const Space = models.Space || model("Space", SpaceSchema);
 export const Setting = models.Setting || model("Setting", SettingSchema);
+export const Admin = models.Admin || model("Admin", AdminSchema);
 
 // Registry used by the generic CRUD router (name → model).
 export const MODELS = {

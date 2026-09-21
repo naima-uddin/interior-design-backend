@@ -3,6 +3,7 @@
 // yields a known-good dataset. Mirrors the frontend's fallback data (lib/data.ts).
 import "dotenv/config";
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 import {
   Banner,
   Product,
@@ -14,6 +15,7 @@ import {
   Room,
   Space,
   Setting,
+  Admin,
 } from "./models.js";
 
 const U = (id, w = 1600) =>
@@ -226,6 +228,8 @@ async function seed() {
     Room.deleteMany({}),
     Space.deleteMany({}),
     Setting.deleteMany({}),
+    // NOTE: Admin is intentionally NOT wiped here — re-running the content
+    // seed must never reset a password an admin has since changed.
   ]);
 
   await Promise.all([
@@ -240,6 +244,18 @@ async function seed() {
     Space.insertMany(withOrder(SPACES)),
     Setting.create(SETTING),
   ]);
+
+  // Seed the admin account only if none exists yet, so reseeding content
+  // never resets a password already changed via the dashboard.
+  const adminEmail = (process.env.ADMIN_EMAIL || "admin@velor.studio").toLowerCase();
+  const existingAdmin = await Admin.findOne({ email: adminEmail });
+  if (!existingAdmin) {
+    const passwordHash = await bcrypt.hash(process.env.ADMIN_PASSWORD || "changeme", 10);
+    await Admin.create({ email: adminEmail, passwordHash, name: "Velor Admin" });
+    console.log(`Admin account created: ${adminEmail}`);
+  } else {
+    console.log(`Admin account already exists: ${adminEmail}`);
+  }
 
   const counts = {
     banners: BANNERS.length,

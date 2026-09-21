@@ -4,6 +4,7 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
 
 import {
   Banner,
@@ -18,11 +19,15 @@ import {
   Setting,
   MODELS,
 } from "./models.js";
+import { login, logout, me, requireAuth } from "./auth.js";
+import { uploadMiddleware, handleUpload } from "./upload.js";
 
 const app = express();
 app.use(express.json({ limit: "4mb" }));
+app.use(cookieParser());
 
-// CORS — allow the storefront origins from env (comma-separated).
+// CORS — allow the storefront + admin origins from env (comma-separated).
+// credentials:true is required so the httpOnly auth cookie round-trips.
 const ORIGINS = (process.env.ALLOWED_ORIGINS || "http://localhost:3000")
   .split(",")
   .map((o) => o.trim())
@@ -34,6 +39,7 @@ app.use(
       if (!origin || ORIGINS.includes(origin)) return cb(null, true);
       cb(null, false);
     },
+    credentials: true,
   }),
 );
 
@@ -50,6 +56,14 @@ const mapProducts = (arr) => arr.map(mapProduct);
 
 /* ── Health ────────────────────────────────────────────────────────────── */
 app.get("/", (req, res) => res.json({ ok: true, service: "velor-api" }));
+
+/* ── Admin auth ────────────────────────────────────────────────────────── */
+app.post("/api/auth/login", login);
+app.post("/api/auth/logout", logout);
+app.get("/api/auth/me", requireAuth, me);
+
+/* ── Image upload (Cloudinary, folder: Interior-design/<folder>) ────────── */
+app.post("/api/upload", requireAuth, uploadMiddleware, handleUpload);
 
 /* ── Batched homepage payload (one request for the whole home page) ─────── */
 app.get("/api/homepage", async (req, res, next) => {
@@ -227,28 +241,27 @@ app.post("/api/contact", (req, res) => {
   res.status(201).json({ ok: true });
 });
 
-/* ── Generic CRUD for every collection (admin/management) ──────────────────
-   POST /api/<resource>            create
-   PUT  /api/<resource>/:id        update
-   DELETE /api/<resource>/:id      delete
-   GET  /api/admin/<resource>      list ALL (incl. inactive)
-   NOTE: unauthenticated for now — put behind admin auth before production. */
+/* ── Generic CRUD for every collection (admin dashboard) ────────────────────
+   POST /api/<resource>            create        \
+   PUT  /api/<resource>/:id        update         } all require admin auth
+   DELETE /api/<resource>/:id      delete        /
+   GET  /api/admin/<resource>      list ALL (incl. inactive) — admin auth */
 for (const [name, Model] of Object.entries(MODELS)) {
-  app.get(`/api/admin/${name}`, async (req, res, next) => {
+  app.get(`/api/admin/${name}`, requireAuth, async (req, res, next) => {
     try {
       res.json({ items: await Model.find().sort({ order: 1, createdAt: 1 }).lean() });
     } catch (err) {
       next(err);
     }
   });
-  app.post(`/api/${name}`, async (req, res, next) => {
+  app.post(`/api/${name}`, requireAuth, async (req, res, next) => {
     try {
       res.status(201).json({ item: await Model.create(req.body) });
     } catch (err) {
       next(err);
     }
   });
-  app.put(`/api/${name}/:id`, async (req, res, next) => {
+  app.put(`/api/${name}/:id`, requireAuth, async (req, res, next) => {
     try {
       const item = await Model.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
@@ -260,7 +273,7 @@ for (const [name, Model] of Object.entries(MODELS)) {
       next(err);
     }
   });
-  app.delete(`/api/${name}/:id`, async (req, res, next) => {
+  app.delete(`/api/${name}/:id`, requireAuth, async (req, res, next) => {
     try {
       const item = await Model.findByIdAndDelete(req.params.id).lean();
       if (!item) return res.status(404).json({ error: "Not found" });
@@ -271,8 +284,8 @@ for (const [name, Model] of Object.entries(MODELS)) {
   });
 }
 
-// Settings is a singleton — allow updating it in place.
-app.put("/api/settings", async (req, res, next) => {
+// Settings is a singleton — allow updating it in place (admin only).
+app.put("/api/settings", requireAuth, async (req, res, next) => {
   try {
     const item = await Setting.findOneAndUpdate({ key: "site" }, req.body, {
       new: true,
