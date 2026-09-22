@@ -75,6 +75,7 @@ const ServiceSchema = new Schema(
     intro: String,
     image,
     includes: [String],
+    startingPrice: String,
     ...base,
   },
   { timestamps: true },
@@ -91,6 +92,18 @@ const PostSchema = new Schema(
     author: String,
     readingTime: String,
     cover: image,
+    body: [String],
+    ...base,
+  },
+  { timestamps: true },
+);
+
+/* Static content pages (About, Privacy Policy, Terms, Cookies, …) */
+const PageSchema = new Schema(
+  {
+    slug: { type: String, required: true, unique: true, index: true },
+    title: { type: String, required: true },
+    intro: String,
     body: [String],
     ...base,
   },
@@ -179,6 +192,7 @@ export const Product = models.Product || model("Product", ProductSchema);
 export const Project = models.Project || model("Project", ProjectSchema);
 export const Service = models.Service || model("Service", ServiceSchema);
 export const Post = models.Post || model("Post", PostSchema);
+export const Page = models.Page || model("Page", PageSchema);
 export const Testimonial = models.Testimonial || model("Testimonial", TestimonialSchema);
 export const Faq = models.Faq || model("Faq", FaqSchema);
 export const Room = models.Room || model("Room", RoomSchema);
@@ -193,6 +207,7 @@ export const MODELS = {
   projects: Project,
   services: Service,
   posts: Post,
+  pages: Page,
   testimonials: Testimonial,
   faqs: Faq,
   rooms: Room,

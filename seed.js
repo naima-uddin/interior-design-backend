@@ -10,6 +10,7 @@ import {
   Project,
   Service,
   Post,
+  Page,
   Testimonial,
   Faq,
   Room,
@@ -86,17 +87,17 @@ const PROJECTS = [
 
 /* ── Services ────────────────────────────────────────────────────────── */
 const SERVICES = [
-  { slug: "home-interior-design", name: "Home Interior Design", tagline: "Complete turnkey homes", summary: "End-to-end interior design for apartments, flats and houses — one team, from first sketch to final handover.", intro: "A single, coherent design language carried through every room of your home. We handle space planning, materials, joinery, lighting and styling so the whole space feels considered and complete.", image: { url: U("photo-1618221195710-dd6b41faaea6", 1200) }, includes: ["Full space planning & 3D visualisation", "Material & finish selection", "Custom joinery throughout", "Lighting & electrical layout", "Furnishing, styling & handover"] },
-  { slug: "bedroom-interior-design", name: "Bedroom Interior Design", tagline: "Master, kids & guest rooms", summary: "Restful bedrooms with smart storage, headboard features and warm, low lighting tailored to how you sleep and live.", intro: "From master suites to kids' and guest rooms — bedrooms designed for rest, with generous storage and a calm, tactile material palette.", image: { url: U("photo-1540574163026-643ea20ade25", 1200) }, includes: ["Headboard & feature wall design", "Wardrobe & concealed storage", "Dressing & study zones", "Ambient & task lighting", "Drapery & soft furnishings"] },
-  { slug: "living-room-design", name: "Living Room Design", tagline: "The heart of the home", summary: "Living rooms planned around real life — layouts, feature walls, media units and layered lighting that bring a room together.", intro: "The room everyone gathers in. We plan the layout, design the feature wall and media unit, and layer the lighting so it works for quiet evenings and full houses alike.", image: { url: U("photo-1616486338812-3dadae4b4ace", 1200) }, includes: ["TV / feature wall design", "Media & display joinery", "Seating layout planning", "False ceiling & cove lighting", "Rug, art & styling"] },
-  { slug: "dining-room-design", name: "Dining Room Design", tagline: "Made for gathering", summary: "Coordinated dining spaces with custom crockery cabinetry, statement lighting and seating built for long meals.", intro: "Dining rooms designed for lingering — crockery display cabinetry, a statement pendant and a table setting that invites long, slow meals.", image: { url: U("photo-1617806118233-18e1de247200", 1200) }, includes: ["Crockery & display cabinetry", "Statement pendant lighting", "Accent wall panelling", "Seating configuration", "Ceiling detailing"] },
-  { slug: "modular-kitchen-design", name: "Modular Kitchen Design", tagline: "Modern & handleless", summary: "Sleek modular kitchens with integrated appliances, tall pantry units and hard-wearing worktops built around real cooking.", intro: "Efficient, beautiful modular kitchens with handleless cabinetry, integrated appliances and durable worktops — planned around the way you actually cook.", image: { url: U("photo-1556228453-efd6c1ff04f6", 1200) }, includes: ["Handleless modular cabinetry", "Integrated appliance planning", "Tall pantry & storage towers", "Quartz / stone worktops", "Task & under-cabinet lighting"] },
-  { slug: "open-kitchen-design", name: "Open Kitchen Design", tagline: "Cook, connected", summary: "Open-concept kitchens that flow into living areas — breakfast islands, smart zoning and seamless materials.", intro: "Open kitchens that connect to the living space without losing function — an island to gather around, clever zoning and a material palette that ties the two rooms together.", image: { url: U("photo-1600607687939-ce8a6c25118c", 1200) }, includes: ["Breakfast island with seating", "Open-plan zoning", "Continuous material palette", "Concealed storage", "Layered lighting"] },
-  { slug: "traditional-kitchen-design", name: "Traditional Kitchen Design", tagline: "Classic & warm", summary: "Timeless kitchens with shaker cabinetry, warm timber and classic detailing for a homely, enduring feel.", intro: "Warm, classic kitchens with shaker-style cabinetry and natural timber — timeless detailing that never dates.", image: { url: U("photo-1600585154340-be6161a56a0c", 1200) }, includes: ["Shaker-style cabinetry", "Natural timber finishes", "Classic hardware & detailing", "Larder & pantry storage", "Warm ambient lighting"] },
-  { slug: "bathroom-design", name: "Bathroom Design", tagline: "Calm & considered", summary: "Spa-like bathrooms with coordinated fixtures, honed stone finishes and clever, clutter-free storage.", intro: "Bathrooms designed as a retreat — coordinated fixtures, natural stone and tile, and concealed storage that keeps everything calm and clutter-free.", image: { url: U("photo-1600210492486-724fe5c67fb0", 1200) }, includes: ["Fixture & sanitaryware selection", "Tile & stone finishes", "Vanity & storage joinery", "Waterproofing & MEP coordination", "Lighting & mirror design"] },
-  { slug: "common-space-design", name: "Common Space Design", tagline: "Flexible shared zones", summary: "Formal sitting rooms and multi-use common areas designed to flex between family time and entertaining.", intro: "Shared spaces that adapt — formal sitting rooms, family lounges and multi-use zones that move easily between quiet days and busy gatherings.", image: { url: U("photo-1524758631624-e2822e304c36", 1200) }, includes: ["Flexible seating layouts", "Feature storage walls", "Connected living–dining flow", "Layered lighting", "Custom joinery & styling"] },
-  { slug: "custom-furniture-design", name: "Custom Furniture Design", tagline: "Made to measure", summary: "Bespoke wardrobes, cabinetry and furniture, designed for your space and built in our own workshop.", intro: "Furniture made to fit your space exactly — wardrobes, cabinetry and standalone pieces, designed with you and crafted in our own workshop.", image: { url: U("photo-1595428774223-ef52624120d2", 1200) }, includes: ["Bespoke wardrobes & cabinetry", "Standalone furniture pieces", "Material & finish sampling", "In-house manufacturing", "Precise on-site fitting"] },
-  { slug: "landscape-design", name: "Landscape Design", tagline: "Outdoor living", summary: "Balconies, terraces and gardens planned as living spaces — greenery, seating and warm outdoor lighting.", intro: "Outdoor spaces designed to be lived in — balconies, terraces and gardens with considered planting, comfortable seating and soft evening light.", image: { url: U("photo-1512212621149-107ffe572d2f", 1200) }, includes: ["Planting & greenery scheme", "Terrace / balcony seating", "Decking & surface finishes", "Outdoor lighting", "Weatherproof materials"] },
+  { slug: "home-interior-design", name: "Home Interior Design", tagline: "Complete turnkey homes", summary: "End-to-end interior design for apartments, flats and houses — one team, from first sketch to final handover.", intro: "A single, coherent design language carried through every room of your home. We handle space planning, materials, joinery, lighting and styling so the whole space feels considered and complete.", image: { url: U("photo-1618221195710-dd6b41faaea6", 1200) }, includes: ["Full space planning & 3D visualisation", "Material & finish selection", "Custom joinery throughout", "Lighting & electrical layout", "Furnishing, styling & handover"], startingPrice: "Starting from ৳1,85,000" },
+  { slug: "bedroom-interior-design", name: "Bedroom Interior Design", tagline: "Master, kids & guest rooms", summary: "Restful bedrooms with smart storage, headboard features and warm, low lighting tailored to how you sleep and live.", intro: "From master suites to kids' and guest rooms — bedrooms designed for rest, with generous storage and a calm, tactile material palette.", image: { url: U("photo-1540574163026-643ea20ade25", 1200) }, includes: ["Headboard & feature wall design", "Wardrobe & concealed storage", "Dressing & study zones", "Ambient & task lighting", "Drapery & soft furnishings"], startingPrice: "Starting from ৳45,000" },
+  { slug: "living-room-design", name: "Living Room Design", tagline: "The heart of the home", summary: "Living rooms planned around real life — layouts, feature walls, media units and layered lighting that bring a room together.", intro: "The room everyone gathers in. We plan the layout, design the feature wall and media unit, and layer the lighting so it works for quiet evenings and full houses alike.", image: { url: U("photo-1616486338812-3dadae4b4ace", 1200) }, includes: ["TV / feature wall design", "Media & display joinery", "Seating layout planning", "False ceiling & cove lighting", "Rug, art & styling"], startingPrice: "Starting from ৳60,000" },
+  { slug: "dining-room-design", name: "Dining Room Design", tagline: "Made for gathering", summary: "Coordinated dining spaces with custom crockery cabinetry, statement lighting and seating built for long meals.", intro: "Dining rooms designed for lingering — crockery display cabinetry, a statement pendant and a table setting that invites long, slow meals.", image: { url: U("photo-1617806118233-18e1de247200", 1200) }, includes: ["Crockery & display cabinetry", "Statement pendant lighting", "Accent wall panelling", "Seating configuration", "Ceiling detailing"], startingPrice: "Starting from ৳35,000" },
+  { slug: "modular-kitchen-design", name: "Modular Kitchen Design", tagline: "Modern & handleless", summary: "Sleek modular kitchens with integrated appliances, tall pantry units and hard-wearing worktops built around real cooking.", intro: "Efficient, beautiful modular kitchens with handleless cabinetry, integrated appliances and durable worktops — planned around the way you actually cook.", image: { url: U("photo-1556228453-efd6c1ff04f6", 1200) }, includes: ["Handleless modular cabinetry", "Integrated appliance planning", "Tall pantry & storage towers", "Quartz / stone worktops", "Task & under-cabinet lighting"], startingPrice: "Starting from ৳1,400/sq.ft" },
+  { slug: "open-kitchen-design", name: "Open Kitchen Design", tagline: "Cook, connected", summary: "Open-concept kitchens that flow into living areas — breakfast islands, smart zoning and seamless materials.", intro: "Open kitchens that connect to the living space without losing function — an island to gather around, clever zoning and a material palette that ties the two rooms together.", image: { url: U("photo-1600607687939-ce8a6c25118c", 1200) }, includes: ["Breakfast island with seating", "Open-plan zoning", "Continuous material palette", "Concealed storage", "Layered lighting"], startingPrice: "Starting from ৳1,600/sq.ft" },
+  { slug: "traditional-kitchen-design", name: "Traditional Kitchen Design", tagline: "Classic & warm", summary: "Timeless kitchens with shaker cabinetry, warm timber and classic detailing for a homely, enduring feel.", intro: "Warm, classic kitchens with shaker-style cabinetry and natural timber — timeless detailing that never dates.", image: { url: U("photo-1600585154340-be6161a56a0c", 1200) }, includes: ["Shaker-style cabinetry", "Natural timber finishes", "Classic hardware & detailing", "Larder & pantry storage", "Warm ambient lighting"], startingPrice: "Starting from ৳1,300/sq.ft" },
+  { slug: "bathroom-design", name: "Bathroom Design", tagline: "Calm & considered", summary: "Spa-like bathrooms with coordinated fixtures, honed stone finishes and clever, clutter-free storage.", intro: "Bathrooms designed as a retreat — coordinated fixtures, natural stone and tile, and concealed storage that keeps everything calm and clutter-free.", image: { url: U("photo-1600210492486-724fe5c67fb0", 1200) }, includes: ["Fixture & sanitaryware selection", "Tile & stone finishes", "Vanity & storage joinery", "Waterproofing & MEP coordination", "Lighting & mirror design"], startingPrice: "Starting from ৳55,000" },
+  { slug: "common-space-design", name: "Common Space Design", tagline: "Flexible shared zones", summary: "Formal sitting rooms and multi-use common areas designed to flex between family time and entertaining.", intro: "Shared spaces that adapt — formal sitting rooms, family lounges and multi-use zones that move easily between quiet days and busy gatherings.", image: { url: U("photo-1524758631624-e2822e304c36", 1200) }, includes: ["Flexible seating layouts", "Feature storage walls", "Connected living–dining flow", "Layered lighting", "Custom joinery & styling"], startingPrice: "Starting from ৳40,000" },
+  { slug: "custom-furniture-design", name: "Custom Furniture Design", tagline: "Made to measure", summary: "Bespoke wardrobes, cabinetry and furniture, designed for your space and built in our own workshop.", intro: "Furniture made to fit your space exactly — wardrobes, cabinetry and standalone pieces, designed with you and crafted in our own workshop.", image: { url: U("photo-1595428774223-ef52624120d2", 1200) }, includes: ["Bespoke wardrobes & cabinetry", "Standalone furniture pieces", "Material & finish sampling", "In-house manufacturing", "Precise on-site fitting"], startingPrice: "Starting from ৳850/sq.ft" },
+  { slug: "landscape-design", name: "Landscape Design", tagline: "Outdoor living", summary: "Balconies, terraces and gardens planned as living spaces — greenery, seating and warm outdoor lighting.", intro: "Outdoor spaces designed to be lived in — balconies, terraces and gardens with considered planting, comfortable seating and soft evening light.", image: { url: U("photo-1512212621149-107ffe572d2f", 1200) }, includes: ["Planting & greenery scheme", "Terrace / balcony seating", "Decking & surface finishes", "Outdoor lighting", "Weatherproof materials"], startingPrice: "Starting from ৳30,000" },
 ];
 
 /* ── Posts ───────────────────────────────────────────────────────────── */
@@ -105,6 +106,66 @@ const POSTS = [
   { slug: "choosing-the-right-sofa", title: "Choosing a sofa you'll still love in ten years", excerpt: "Frame, fill and fabric — the three things that decide whether a sofa lasts a decade or sags in a season.", category: "Buying Guide", date: "2026-07-30", author: "Velor Studio", readingTime: "6 min read", cover: { url: U("photo-1493663284031-b7e3aefcae8e", 1400) }, body: ["A sofa is one of the few pieces you touch every single day, so it repays getting right. Three things decide how well it ages: the frame, the fill and the fabric.", "The frame is everything. Look for kiln-dried hardwood, joined and glued rather than stapled. It's hidden, but it's the difference between a sofa that holds its shape for years and one that loosens in months.", "For the fill, feather-wrapped foam gives the best balance — the plushness of down with the support of a foam core. Pure foam is firmer and lower-maintenance; pure down is luxurious but needs regular plumping.", "Fabric is where comfort meets real life. Performance weaves and tight bouclés wear beautifully and clean easily. If you have children or pets, choose a removable, washable cover."] },
   { slug: "small-apartment-storage", title: "Smart storage ideas for a small Dhaka apartment", excerpt: "Ten ways to build in storage that disappears — so a compact flat feels open, calm and twice its size.", category: "Ideas", date: "2026-07-11", author: "Velor Studio", readingTime: "4 min read", cover: { url: U("photo-1533090161767-e6ffed986c88", 1400) }, body: ["In a compact apartment, storage is the difference between calm and chaos — but bulky cabinets can make small rooms feel smaller. The trick is to build storage in, so it disappears into the architecture.", "Go full height. Wardrobes and units that run floor to ceiling use otherwise-wasted space and draw the eye up, making the room feel taller.", "Use the in-between spaces — under beds, over doors, the sides of a kitchen island. A little bespoke joinery in these gaps adds up to a lot of hidden storage.", "And keep the fronts calm: handleless, in the same tone as the wall, so storage recedes and the room stays open and quiet."] },
   { slug: "lighting-layers-explained", title: "The three layers of light every room needs", excerpt: "Ambient, task and accent — get the mix right and any room can shift from bright and busy to soft and restful.", category: "Design Notes", date: "2026-06-22", author: "Velor Studio", readingTime: "5 min read", cover: { url: U("photo-1524758870432-af57e54afa26", 1400) }, body: ["Good lighting is rarely one bright light — it's several, working together. Think in three layers: ambient, task and accent.", "Ambient is your base wash of light — cove lighting, downlights or a soft ceiling fixture. It should be gentle and, ideally, dimmable.", "Task light is focused where you do things — reading, cooking, working. A floor lamp beside a chair or under-cabinet strips in a kitchen.", "Accent light adds mood and drama — a wall light grazing a textured surface, a picture light, a low table lamp. Together, these layers let one room feel completely different at breakfast and at midnight."] },
+];
+
+/* ── Static pages (About, Privacy, Terms, Cookies) ──────────────────── */
+const PAGES = [
+  {
+    slug: "about",
+    title: "About Velor",
+    intro:
+      "Velor is a full-service interior design studio — design, custom manufacturing and project management under one roof, for a single room or a whole home.",
+    body: [
+      "Founded in 2014, Velor has grown from a small design practice into a complete interior studio: space planning, materials and lighting design, our own furniture workshop, and the site teams to see a project through to handover.",
+      "We work across Bangladesh — Dhaka, Chattogram, Sylhet, Khulna, Rajshahi, Barishal, Rangpur and Mymensingh — on everything from single rooms to full turnkey apartments and houses.",
+      "Every quotation is itemised and every project is managed by one dedicated point of contact, from the first consultation through to the final walkthrough. Because we manufacture in-house, we control quality and cost at every step rather than relying on outside vendors.",
+      "If you'd like to know more about how we work, see our process on the Services page, or get in touch to book a free consultation.",
+    ],
+  },
+  {
+    slug: "privacy-policy",
+    title: "Privacy Policy",
+    intro:
+      "This policy explains what information Velor collects, how it is used, and the choices you have.",
+    body: [
+      "Information we collect. When you use our contact form, request a consultation, or subscribe to updates, we collect the details you provide — such as your name, phone number, email address and project details. We also collect basic usage data (pages visited, device and browser type) through standard web analytics.",
+      "How we use it. We use this information to respond to enquiries, schedule consultations, prepare quotations, deliver the services you request, and — only with your consent — send occasional updates about our work. We do not sell your personal information to third parties.",
+      "Sharing. We may share information with trusted service providers who help us operate the business (such as hosting, payment or communication tools), bound by confidentiality obligations, or where required by law.",
+      "Cookies. We use cookies and similar technologies to keep the site working properly and to understand how it's used — see our Cookies policy for details.",
+      "Data retention & security. We keep personal information only as long as needed for the purposes described here, and take reasonable technical and organisational measures to protect it against unauthorised access, loss or misuse.",
+      "Your rights. You may ask us to access, correct or delete the personal information we hold about you at any time by contacting us using the details on our Contact page.",
+      "Changes to this policy. We may update this policy from time to time; the latest version will always be available on this page.",
+    ],
+  },
+  {
+    slug: "terms-conditions",
+    title: "Terms & Conditions",
+    intro:
+      "These terms govern your use of the Velor website and the services we provide. By using this site or engaging us for a project, you agree to them.",
+    body: [
+      "Services. Velor provides interior design, custom furniture manufacturing and project management services. The scope, timeline and cost of any project are set out in a written, itemised quotation agreed with you before work begins.",
+      "Quotations & payments. Quotations are valid for the period stated at the time of issue. Projects typically proceed on an agreed payment schedule tied to milestones (consultation, design approval, production, installation and handover). Prices shown on this website are indicative starting prices and may vary based on the specifics of your space and requirements.",
+      "Changes & cancellations. Any changes to an agreed scope of work may affect cost and timeline and will be confirmed in writing before proceeding. Cancellation terms for materials already ordered or work already completed will be set out in your project agreement.",
+      "Intellectual property. Design concepts, drawings and 3D visualisations prepared for your project remain the intellectual property of Velor until the project is paid in full, after which you receive a licence to use them for your own space.",
+      "Website use. Content on this website — including text, images and design — is owned by Velor or its licensors and may not be reproduced without permission. We aim to keep information on this site accurate but do not guarantee it is free of errors at all times.",
+      "Liability. While we take great care in the design and execution of every project, our liability in connection with any project is limited to the value of the services provided, except where liability cannot be excluded by law.",
+      "Governing law. These terms are governed by the laws of Bangladesh.",
+    ],
+  },
+  {
+    slug: "cookies",
+    title: "Cookies Policy",
+    intro:
+      "This page explains what cookies are, which ones we use, and how you can control them.",
+    body: [
+      "What are cookies? Cookies are small text files placed on your device when you visit a website. They help the site function correctly and let us understand how it's being used.",
+      "Essential cookies. Some cookies are necessary for the website to work — for example, keeping you signed in to the admin dashboard or remembering items in a saved list. These cannot be switched off.",
+      "Analytics cookies. We use analytics cookies to understand how visitors use the site (which pages are popular, how people navigate) so we can improve it. This information is collected in aggregate and is not used to personally identify you.",
+      "Third-party cookies. Some pages may load content — such as maps or embedded media — from third-party providers who may set their own cookies, governed by their own privacy policies.",
+      "Managing cookies. Most browsers let you view, delete and block cookies through their settings. Blocking essential cookies may affect how parts of the site work.",
+      "Changes to this policy. We may update this cookies policy from time to time; the latest version will always be available on this page.",
+    ],
+  },
 ];
 
 /* ── Testimonials / FAQs / Rooms / Spaces ────────────────────────────── */
@@ -223,6 +284,7 @@ async function seed() {
     Project.deleteMany({}),
     Service.deleteMany({}),
     Post.deleteMany({}),
+    Page.deleteMany({}),
     Testimonial.deleteMany({}),
     Faq.deleteMany({}),
     Room.deleteMany({}),
@@ -238,6 +300,7 @@ async function seed() {
     Project.insertMany(withOrder(PROJECTS)),
     Service.insertMany(withOrder(SERVICES)),
     Post.insertMany(withOrder(POSTS)),
+    Page.insertMany(withOrder(PAGES)),
     Testimonial.insertMany(withOrder(TESTIMONIALS)),
     Faq.insertMany(withOrder(FAQS)),
     Room.insertMany(withOrder(ROOMS)),
@@ -271,6 +334,7 @@ async function seed() {
     projects: PROJECTS.length,
     services: SERVICES.length,
     posts: POSTS.length,
+    pages: PAGES.length,
     testimonials: TESTIMONIALS.length,
     faqs: FAQS.length,
     rooms: ROOMS.length,

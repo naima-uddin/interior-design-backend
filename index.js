@@ -12,6 +12,7 @@ import {
   Project,
   Service,
   Post,
+  Page,
   Testimonial,
   Faq,
   Room,
@@ -206,6 +207,24 @@ app.get("/api/posts", async (req, res, next) => {
 app.get("/api/posts/:slug", async (req, res, next) => {
   try {
     const item = await Post.findOne({ slug: req.params.slug, isActive: true }).lean();
+    if (!item) return res.status(404).json({ error: "Not found" });
+    res.json({ item });
+  } catch (err) {
+    next(err);
+  }
+});
+
+/* ── Static content pages (About, Privacy Policy, Terms, Cookies, …) ───── */
+app.get("/api/pages", async (req, res, next) => {
+  try {
+    res.json({ items: await listActive(Page) });
+  } catch (err) {
+    next(err);
+  }
+});
+app.get("/api/pages/:slug", async (req, res, next) => {
+  try {
+    const item = await Page.findOne({ slug: req.params.slug, isActive: true }).lean();
     if (!item) return res.status(404).json({ error: "Not found" });
     res.json({ item });
   } catch (err) {
