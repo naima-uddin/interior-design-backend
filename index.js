@@ -101,7 +101,7 @@ app.get("/api/homepage", async (req, res, next) => {
     res.json({
       banners,
       services: services.slice(0, 6),
-      featured: mapProducts(products.slice(0, 3)),
+      featured: mapProducts(products.slice(0, 6)),
       rooms,
       hotspot: setting?.hotspot || null,
       projects: projects.slice(0, 8),
