@@ -149,6 +149,13 @@ const SettingSchema = new Schema(
       image,
       points: [{ x: Number, y: Number, title: String, body: String }],
     },
+    beforeAfter: {
+      title: String,
+      intro: String,
+      beforeImage: image,
+      afterImage: image,
+      points: [{ text: String }],
+    },
     spacesImage: image,
   },
   { timestamps: true },

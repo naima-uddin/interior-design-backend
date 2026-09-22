@@ -110,6 +110,7 @@ app.get("/api/homepage", async (req, res, next) => {
       testimonials,
       company: setting?.company || null,
       spacesImage: setting?.spacesImage || null,
+      beforeAfter: setting?.beforeAfter || null,
     });
   } catch (err) {
     next(err);
