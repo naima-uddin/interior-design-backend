@@ -73,7 +73,7 @@ export async function updateTeamMember(req, res, next) {
     }
 
     const admin = await Admin.findByIdAndUpdate(req.params.id, update, {
-      new: true,
+      returnDocument: "after",
       runValidators: true,
     }).lean();
     if (!admin) return res.status(404).json({ error: "Not found" });

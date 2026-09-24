@@ -296,7 +296,7 @@ for (const [name, Model] of Object.entries(MODELS)) {
   app.put(`/api/${name}/:id`, requireAuth, async (req, res, next) => {
     try {
       const item = await Model.findByIdAndUpdate(req.params.id, req.body, {
-        new: true,
+        returnDocument: "after",
         runValidators: true,
       }).lean();
       if (!item) return res.status(404).json({ error: "Not found" });
@@ -320,7 +320,7 @@ for (const [name, Model] of Object.entries(MODELS)) {
 app.put("/api/settings", requireAuth, requireRole("admin"), async (req, res, next) => {
   try {
     const item = await Setting.findOneAndUpdate({ key: "site" }, req.body, {
-      new: true,
+      returnDocument: "after",
       upsert: true,
       setDefaultsOnInsert: true,
     }).lean();
