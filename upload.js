@@ -35,6 +35,7 @@ const ALLOWED_FOLDERS = new Set([
   "testimonials",
   "rooms",
   "spaces",
+  "branding",
   "misc",
 ]);
 
