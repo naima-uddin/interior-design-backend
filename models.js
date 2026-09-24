@@ -139,6 +139,11 @@ const SpaceSchema = new Schema(
 const SettingSchema = new Schema(
   {
     key: { type: String, default: "site", unique: true },
+    // Brand assets shown site-wide: navbar logo + browser favicon.
+    branding: {
+      logo: image,
+      favicon: image,
+    },
     company: {
       founded: String,
       stats: [{ value: String, label: String }],
@@ -171,7 +176,9 @@ const SettingSchema = new Schema(
     },
     spacesImage: image,
   },
-  { timestamps: true },
+  // strict:false so admin-editable slices that aren't spelled out above
+  // (siteInfo, footer) are persisted as-is instead of being silently dropped.
+  { timestamps: true, strict: false },
 );
 
 /* Admin/moderator users (no public signup — accounts created via Team page or seed).
